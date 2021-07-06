@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import HomePage from './Pages/HomePage';
+import SearchPage from './Pages/SearchPage';
+import Shows from './Pages/shows';
+import Header from './Components/layout/Header';
+import { ShowsState } from './context/ShowContext';
+import { AlertState } from './context/Alert';
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ShowsState >
+      <AlertState>
+        <BrowserRouter>
+          <Header />
+          <Switch>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/search" exact component={SearchPage} />
+            <Route path="/shows/:id" exact component={Shows} />
+          </Switch>
+        </BrowserRouter>
+      </AlertState>
+    </ShowsState>
   );
 }
 
